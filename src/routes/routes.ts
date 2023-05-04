@@ -3,10 +3,12 @@ import UserController from '../controllers/UserController'
 
 const router = Router()
 
+const userController = new UserController()
+
 router
-    .get('/user', UserController.getAllUsers)   
-    .post("/user", UserController.createUser)
-    .delete('/user', UserController.deleteUser)
+    .get('/user', userController.getAllUsers)   
+    .post("/user", userController.createUser)
+    .delete('/user', userController.deleteUser)
 
 
 
