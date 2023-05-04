@@ -14,6 +14,10 @@ class UserController {
         if(!name) {
             return res.status(400).json({message: "Nome obrigatório"})
         }
+
+        if(!email) {
+            return res.status(400).json({message: "Email é obrigatório"})
+        }
     
         this.userService.createUser(name, email)
         return res.status(200).json({message: "Usuario criado"})
