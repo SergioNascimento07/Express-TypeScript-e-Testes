@@ -1,4 +1,4 @@
-interface IUser {
+export interface IUser {
     name: string,
     email: string
 }
@@ -11,20 +11,26 @@ const db: IUser[] = [
 ]
 
 class UserService {
-    static createUser = (name: string, email: string)=> {
+    public db: IUser[]
+
+    public constructor(database=db) {
+        this.db = database
+    }
+
+    createUser = (name: string, email: string)=> {
         const user = {
             name: name,
             email: email
         }
-        db.push(user)
-        console.log(db)
+        this.db.push(user)
+        console.log("Db atualizado... ", this.db)
     }
 
-    static getAllUsers = (): IUser[] => {
-        return db
+    getAllUsers = (): IUser[] => {
+        return this.db
     }
 
-    static deleteUser = (user: IUser): void => {
+    deleteUser = (user: IUser): void => {
         console.log("Deletand usuário... ", user)
     }
 }
