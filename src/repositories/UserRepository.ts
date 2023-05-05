@@ -7,13 +7,26 @@ import { User } from "../entities/User";
 
 //criar, apagar, pegar
 export class UserRepository {
-    private manager: EntityManager
+    public manager: EntityManager
 
     constructor(manager: EntityManager) {
         this.manager = manager
     }
 
-    createUser = async (user: User)=> {
-        return this.manager.save(user)
+    printa = () => {
+        console.log(100200)
+    }
+
+    createUser = async (user: User): Promise<User>=> {
+        return await this.manager.save(user)
+    }
+
+    //where busca nessa coluna por tal valor
+    getUser = async (userId: string): Promise<User|null> => {
+        return this.manager.findOne(User, {
+            where: {
+                user_id: userId
+            }
+        })
     }
 }

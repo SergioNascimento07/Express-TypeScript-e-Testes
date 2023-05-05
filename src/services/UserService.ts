@@ -1,38 +1,47 @@
-export interface IUser {
-    name: string,
-    email: string
-}
+// export interface IUser {
+//     name: string,
+//     email: string
+// }
 
-const db: IUser[] = [
-    {
-        name: "Joana",
-        email: "joana@dio.com"
-    }
-]
+import { AppDataSource } from "../database"
+import { User } from "../entities/User"
+import { UserRepository } from "../repositories/UserRepository"
+
+// const db: IUser[] = [
+//     {
+//         name: "Joana",
+//         email: "joana@dio.com"
+//     }
+// ]
 
 class UserService {
-    public db: IUser[]
+    user: User | undefined
+    // db: IUser[]
 
-    public constructor(database=db) {
-        this.db = database
+    // public constructor(database=db) {
+    //     this.db = database
+    // }
+
+    public userRepository: UserRepository
+
+    constructor(
+        userRepository = new UserRepository(AppDataSource.manager)
+    ) {
+        this.userRepository = userRepository
     }
 
-    createUser = (name: string, email: string)=> {
-        const user = {
-            name: name,
-            email: email
-        }
-        this.db.push(user)
-        console.log("Db atualizado... ", this.db)
+    createUser = async (name: string, email: string, password: string)=> {
+        this.user = new User(name, email, password)
+        return await this.userRepository.createUser(this.user)
+    }
+    
+    getUser = () => {
+        // return this.db
     }
 
-    getAllUsers = (): IUser[] => {
-        return this.db
-    }
-
-    deleteUser = (user: IUser): void => {
-        console.log("Deletand usuário... ", user)
-    }
+    // deleteUser = (user: IUser): void => {
+    //     console.log("Deletand usuário... ", user)
+    // }
 }
 
 export default UserService
