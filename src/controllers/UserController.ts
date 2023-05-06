@@ -9,7 +9,7 @@ class UserController {
     }
 
     createUser = (req: Request, res: Response)=> {
-        const {name, email} = req.body
+        const {name, email, password} = req.body
 
         if(!name) {
             return res.status(400).json({message: "Nome obrigatório"})
@@ -18,21 +18,24 @@ class UserController {
         if(!email) {
             return res.status(400).json({message: "Email é obrigatório"})
         }
+
+        if(!password) {
+            return res.status(400).json({message: "Senha é obrigatória"})
+        }
     
-        this.userService.createUser(name, email)
+        this.userService.createUser(name, email, password)
         return res.status(200).json({message: "Usuario criado"})
     }
 
-    getAllUsers = (req: Request, res: Response)=> {
-        const users = this.userService.getAllUsers()
-        return res.status(200).json(users)
+    getUsers = (req: Request, res: Response)=> {
+        return res.status(200)
     }
 
-    deleteUser = (req: Request, res: Response)=> {
-        const user = req.body
-        this.userService.deleteUser(user)
-        return res.status(200).json({message: "Usuário deletado"})
-    }
+    // deleteUser = (req: Request, res: Response)=> {
+    //     const user = req.body
+    //     this.userService.deleteUser(user)
+    //     return res.status(200).json({message: "Usuário deletado"})
+    // }
 }
 
 export default UserController

@@ -1,6 +1,11 @@
-import { User } from "../entities/User"
-import { UserRepository } from "../repositories/UserRepository"
+// import { User } from "../entities/User"
+// import { UserRepository } from "../repositories/UserRepository"
 import UserService from "./UserService"
+
+//mockar a funcao que faz a inicializacao do appDataSource
+jest.mock("../database", ()=> {
+    initialize: jest.fn()
+})
 
 // const mockUserRepository = jest.mock("../repositories/UserRepository", ()=> ({
 //     ...jest.requireActual("../repositories/UserRepository"),
