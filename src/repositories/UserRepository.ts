@@ -23,9 +23,19 @@ export class UserRepository {
 
     //where busca nessa coluna por tal valor
     getUser = async (userId: string): Promise<User|null> => {
-        return this.manager.findOne(User, {
+        const user = await this.manager.findOne(User, {
             where: {
                 user_id: userId
+            }
+        })
+        return user
+    }
+
+    getUserByEmailAndPassword = async (email: string, password: string): Promise<User|null> => {
+        return this.manager.findOne(User, {
+            where: {
+                email: email,
+                password: password
             }
         })
     }

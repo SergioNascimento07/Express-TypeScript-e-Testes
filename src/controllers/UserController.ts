@@ -31,6 +31,16 @@ class UserController {
         return res.status(200)
     }
 
+    getUser = async (req: Request, res: Response) => {
+        const {userId} = req.params
+        const user = await  this.userService.getUser(userId)
+        return res.status(200).json({
+            userId: user?.user_id,
+            name: user?.name,
+            email: user?.email
+        })
+    }
+
     deleteUser = (req: Request, res: Response)=> {
         return res.status(200)
         // const user = req.body

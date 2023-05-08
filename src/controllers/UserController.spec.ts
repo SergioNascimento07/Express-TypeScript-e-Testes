@@ -10,7 +10,8 @@ jest.mock("../database", ()=> {
 })
 
 const mockUserService = {
-    createUser: jest.fn()
+    createUser: jest.fn(),
+    getUser: jest.fn()
 }
 
 jest.mock("../services/UserService", ()=> {
@@ -24,7 +25,8 @@ jest.mock("../services/UserService", ()=> {
 describe("UserController", ()=> {
     //necessario passar as funcoes que vao ser usadas
     const mockUserService: Partial<UserService> = {
-        createUser: jest.fn()
+        createUser: jest.fn(),
+        getUser: jest.fn()
     }
     const userController = new UserController(mockUserService as UserService)
 
@@ -107,4 +109,17 @@ describe("UserController", ()=> {
     //     expect(mockResponse.state.status).toBe(200)
     //     expect(mockResponse.state.json).toMatchObject({message: "Usuário deletado"})
     // })
+
+    it("Deve retornar o usuário com o userId informado", ()=> {
+        const mockRequest = makeMockRequest({
+            params: {
+                userId: "123",
+            }
+        })
+        const mockResponse = makeMockResponse()
+        userController.getUser(mockRequest, mockResponse)
+        expect(mockUserService.getUser).toHaveBeenCalledWith('123')
+        // expect(mockResponse.state.status).toBe(200)
+        // expect(mockResponse.state.json).toMatchObject()
+    })
 })
