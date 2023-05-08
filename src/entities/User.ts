@@ -1,7 +1,7 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 import {randomUUID} from 'crypto'
 //nome da tabela
-@Entity('User')
+@Entity('users')
 export class User {
     @PrimaryGeneratedColumn()
     user_id: string

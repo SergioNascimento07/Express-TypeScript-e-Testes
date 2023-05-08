@@ -9,12 +9,14 @@ jest.mock("../database", ()=> {
     initialize: jest.fn()
 })
 
+const mockUserService = {
+    createUser: jest.fn()
+}
+
 jest.mock("../services/UserService", ()=> {
     return {
         UserService: jest.fn().mockImplementation(()=> {
-            return {
-                createUser: jest.fn()
-            }
+            return mockUserService
         })
     }
 })
